@@ -9,10 +9,10 @@ python:
 cache: pip
 
 install:
-  - pip install -r requirements_dev.txt
+  - pipenv install -d
 
 script:
-  - coverage run --source='.' manage.py test && coverage report -m --skip-covered
+  - pipenv run coverage run --source='.' manage.py test && coverage report -m --skip-covered
 
 after_success:
-  - coveralls
+  - pipenv run coveralls
