@@ -23,8 +23,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
-        install --dev --verbose
+        pipenv install --dev --verbose
     - name: Run Tests
       run: |
-        coverage run --source='.' manage.py test
-        coverage report -m --skip-covered
+        pipenv run coverage run --source='.' manage.py test
+        pipenv run coverage report -m --skip-covered
