@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master, development ]
 
+jobs:
+  build:
+
   install-test:
     runs-on: ubuntu-latest
 
