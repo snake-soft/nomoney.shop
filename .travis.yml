@@ -9,14 +9,10 @@ python:
 cache: pip
 
 install:
-  - pip install --upgrade pip
-  - pip install --upgrade pipenv
-  - pipenv install --verbose
+  - pipenv install -d
 
 script:
-  - pipenv run coverage run --source='.' manage.py test
-  - pipenv run coverage report -m --skip-covered
+  - pipenv run python manage.py test && pipenv run coverage report -m --skip-covered
 
 after_success:
   - pipenv run coveralls
-install:
