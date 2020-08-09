@@ -1,6 +1,7 @@
 """ global context processor """
 from config.settings import VERSION, NAME
 from user.forms import CustomUserLoginForm
+from django.utils.safestring import mark_safe
 
 
 SYMBOLS = {
@@ -39,6 +40,10 @@ SYMBOLS = {
         'lobby': '<i class="fas fa-couch"></i>',
         'calculator': '<i class="fas fa-calculator"></i>',
     }
+for key, value in SYMBOLS.items():
+    SYMBOLS[key] = mark_safe(value)
+
+VERSION_STR = '.'.join((str(elem) for elem in VERSION))
 
 
 def default(request):
@@ -47,7 +52,7 @@ def default(request):
     context['name'] = NAME
     context['symbols'] = SYMBOLS
     context['version'] = VERSION
-    context['version_str'] = '.'.join((str(elem) for elem in VERSION))
+    context['version_str'] = VERSION_STR
     if not request.user.is_authenticated:
         context['form'] = CustomUserLoginForm()
     return context
