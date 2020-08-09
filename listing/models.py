@@ -7,6 +7,7 @@ from django.db import models
 from config.settings import AUTH_USER_MODEL, LOGGER
 from chat.models import Chat
 from action.models import create_action
+from django.urls.base import reverse
 
 
 def image_path(instance, _):
@@ -199,6 +200,9 @@ class Push(ListingBase):
         """
         return self.pushfeedback_set.all()
 
+    def get_absolute_url(self):
+        return reverse('push_detail', args=[self.pk])
+
     class Meta:
         verbose_name = _('push')
         verbose_name_plural = _('pushs')
@@ -207,6 +211,9 @@ class Push(ListingBase):
 class Pull(ListingBase):
     """ A push is a good or service that is requested from the network """
     type = 'pull'
+
+    def get_absolute_url(self):
+        return reverse('pull_detail', args=[self.pk])
 
     class Meta:
         verbose_name = _('pull')

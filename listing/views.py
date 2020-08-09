@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from category.models import Category
 from calculator.models import VirtualDeal
+from user.models import FAKE_USER
 from .models import Push, Pull
 
 
@@ -43,7 +44,7 @@ class ListingListView(LoginRequiredMixin, TemplateView):
 
 
 # pylint: disable=too-many-ancestors
-class ListingTypeListView(DispatchMixin, LoginRequiredMixin, ListView):
+class ListingTypeListView(DispatchMixin, ListView):
     """ List of all listings of a type """
     model = None
     template_name = 'listing/listing_list.html'
@@ -88,7 +89,7 @@ class ListingUpdateView(ListingCreateUpdateBase, UpdateView):
     """ UpdateView for updating existing listings """
 
 
-class ListingDetailView(DispatchMixin, LoginRequiredMixin, DetailView):
+class ListingDetailView(DispatchMixin, DetailView):
     """ DetailView to view a single listing """
     template_name = 'listing/listing_detail.html'
     context_object_name = 'listing'
@@ -97,9 +98,12 @@ class ListingDetailView(DispatchMixin, LoginRequiredMixin, DetailView):
         user = self.request.user
         context = DetailView.get_context_data(self, **kwargs)
         listing = kwargs['object']
-        partner = listing.user
-        context['deal'] = VirtualDeal.by_user(user, partner)
-        context['chat'] = listing.get_chat_with_partner(partner)
+        if user.is_authenticated:
+            partner = listing.user
+            context['deal'] = VirtualDeal.by_user(user, partner)
+            context['chat'] = listing.get_chat_with_partner(partner)
+        else:
+            listing.user = FAKE_USER
         return context
 
 

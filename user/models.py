@@ -251,3 +251,7 @@ def create_new_user_action(sender, instance, created, **kwargs):
         create_action(instance, 'PROFILE_UPDATED')
         if instance.is_complete:
             create_action(instance, 'PROFILE_COMPLETE')
+
+
+FAKE_USER = User()
+FAKE_USER.username = str(_('login to see'))

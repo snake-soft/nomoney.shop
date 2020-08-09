@@ -22,7 +22,7 @@
         {% else %}
           {% trans 'request' %}
         {% endif %}
-          {{ object.title }} {% trans 'from' %} {{ object.user }}
+          {{ object.title }} {% if user.is_authenticated %}{% trans 'from' %} {{ object.user }}{% endif %}
       </h5>
     </div>
   </div>
