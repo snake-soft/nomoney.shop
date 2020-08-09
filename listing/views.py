@@ -3,12 +3,11 @@ from copy import copy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls.base import reverse_lazy, reverse
+from django.urls.base import reverse
 from django.views.generic.base import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from category.models import Category
 from calculator.models import VirtualDeal
-from user.models import FAKE_USER
 from .models import Push, Pull
 
 
@@ -102,8 +101,6 @@ class ListingDetailView(DispatchMixin, DetailView):
             partner = listing.user
             context['deal'] = VirtualDeal.by_user(user, partner)
             context['chat'] = listing.get_chat_with_partner(partner)
-        else:
-            listing.user = FAKE_USER
         return context
 
 

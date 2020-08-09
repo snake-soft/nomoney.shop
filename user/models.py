@@ -11,6 +11,8 @@ from config.settings import LOGGER
 from chat.models import Chat
 from action.exp import Exp, Level
 from action.models import create_action
+from django.utils.safestring import mark_safe
+from django.urls.base import reverse, reverse_lazy
 
 
 def image_path(instance, filename):
@@ -251,7 +253,3 @@ def create_new_user_action(sender, instance, created, **kwargs):
         create_action(instance, 'PROFILE_UPDATED')
         if instance.is_complete:
             create_action(instance, 'PROFILE_COMPLETE')
-
-
-FAKE_USER = User()
-FAKE_USER.username = str(_('login to see'))

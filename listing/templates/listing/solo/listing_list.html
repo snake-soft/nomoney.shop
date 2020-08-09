@@ -4,7 +4,9 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12"><h5>{% trans 'further'|title %} {% trans 'pushs' %} {% trans 'of' %} {{ listing.user }}</h5></div>
+    <div class="col-12">
+      <h5>{% trans 'further'|title %} {% trans 'pushs' %} {% trans 'of' %} {% if request.user.is_authenticated %}{{ listing.user }}{% else %}{% trans 'this user' %}{% endif %}</h5>
+    </div>
   </div>
 </div>
 {% with listings=listing.user.pushs %}
@@ -15,7 +17,9 @@
 <hr class="py-3">
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12"><h5>{% trans 'further'|title %} {% trans 'pulls' %} {% trans 'of' %} {{ listing.user }}</h5></div>
+    <div class="col-12">
+      <h5>{% trans 'further'|title %} {% trans 'pulls' %} {% trans 'of' %} {% if request.user.is_authenticated %}{{ listing.user }}{% else %}{% trans 'this user' %}{% endif %}</h5>
+    </div>
   </div>
 </div>
 {% with listings=listing.user.pulls %}
