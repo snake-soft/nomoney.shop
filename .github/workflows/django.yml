@@ -6,18 +6,24 @@ on:
   pull_request:
     branches: [ master, development ]
 
-  install-test:
+jobs:
+  build:
+
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2 # Checking out the repo
 
     - name: Install dependecies
-      uses: VaultVulp/action-pipenv@v2.0.1
+    - uses: dschep/install-pipenv-action@v1
       with:
         command: install -d # Install all dependencies, including development ones
     
     - name: Test
-      uses: VaultVulp/action-pipenv@v2.0.1
+    - uses: dschep/install-pipenv-action@v1
       with:
-        command: run coverage run --source='.' manage.py test # Run custom `test` command defined in the `[scripts]` block of Pipfile
+        command: run coverage run --source='.' manage.py test
