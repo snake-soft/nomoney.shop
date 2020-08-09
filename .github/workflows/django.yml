@@ -29,4 +29,4 @@ jobs:
     - name: Run Tests
       run: |
         pipenv run coverage run --source='.' manage.py test
-		pipenv run coverage report -m --skip-covered
+        pipenv run coverage report -m --skip-covered
