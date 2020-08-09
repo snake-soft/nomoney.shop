@@ -1,5 +1,6 @@
 """ global context processor """
 from config.settings import VERSION, NAME
+from user.forms import CustomUserLoginForm
 
 
 SYMBOLS = {
@@ -47,4 +48,6 @@ def default(request):
     context['symbols'] = SYMBOLS
     context['version'] = VERSION
     context['version_str'] = '.'.join((str(elem) for elem in VERSION))
+    if not request.user.is_authenticated:
+        context['form'] = CustomUserLoginForm()
     return context

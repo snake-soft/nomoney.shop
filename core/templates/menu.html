@@ -1,69 +1,128 @@
 {% load static %}
 {% load i18n %}
-<ul class="col-auto navbar-nav mr-auto d-flex flex-wrap pr-0" style="height:50px;">
-<li class="nav-item">
-  <a class="nav-link p-2" href="{% url 'dashboard_home' %}">
-    <!-- <img src="{% static 'images/logo.svg' %}" class="d-inline-block align-top" style="height:40px;" alt=""> -->
-    <span class="nav-link pl-1 pt-1">
-      <!-- <img src="{% static 'images/nomoney.shop.svg' %}" class="d-inline-block align-top" style="height:35px;" alt=""> -->
-      <span class="mr-1">
-        <img src="{% static 'images/logo.svg' %}" class="" style="width:25px;" alt=""></span>
-        <b class="d-none d-md-inline-block"><span style="text-decoration: underline;">nomone</span><span>y</span><span class="position-relative" style="top:4px;">.shop</span></b>
-    </span>
-  </a>
-</li>
-<li class="nav-item">
-  <a class="nav-link p-3" href="{% url 'category_list' %}">{{ symbols.category|safe }}<span class="d-none d-sm-inline-block pl-1">{% trans 'categories' %}</span></a>
-</li>
-<li class="nav-item">
-  <a class="nav-link p-3" href="{% url 'calculator' %}">{{ symbols.calculator|safe }}<span class="d-none d-sm-inline-block pl-1">{% trans 'calculator' %}</span></a>
-</li>
-<li class="nav-item">
-    <a class="nav-link p-3" href="{% url 'chat_list' %}">
-      {% if request.user.unseen_messages.all %}
-        <span class="badge badge-secondary position-absolute" style="margin-top: 15px;margin-left: -10px;">
-          {{ request.user.unseen_messages.all|length }}
+<nav id="main_menu" class="navbar navbar-expand shadow d-flex flex-wrap position-fixed w-100 p-0" style="min-height:50px;z-index:10;top:0;background-color:rgb(29, 161, 242);">
+  {% if request.user.pk %}
+    <ul class="col-auto navbar-nav mr-auto d-flex flex-wrap pr-0" style="height:50px;">
+    <li class="nav-item">
+      <a class="nav-link p-2" href="{% url 'dashboard_home' %}">
+        <!-- <img src="{% static 'images/logo.svg' %}" class="d-inline-block align-top" style="height:40px;" alt=""> -->
+        <span class="nav-link pl-1 pt-1">
+          <!-- <img src="{% static 'images/nomoney.shop.svg' %}" class="d-inline-block align-top" style="height:35px;" alt=""> -->
+          <span class="mr-1">
+            <img src="{% static 'images/logo.svg' %}" class="" style="width:25px;" alt=""></span>
+            <b class="d-none d-md-inline-block"><span style="text-decoration: underline;">nomone</span><span>y</span><span class="position-relative" style="top:4px;">.shop</span></b>
         </span>
-      {% endif %}
-      {{ symbols.chat|safe }}
-      <span class="d-none d-sm-inline-block pl-1">{% trans 'chats' %}</span>
-    </a>
-  </li>
-</ul>
-<ul class="col-auto navbar-nav ml-auto navbar-right pr-0 my-auto" style="height:50px;">
-  <li class="nav-item d-flex" title="{% trans 'help' %}">
-    <button class="nav-link btn btn-link help_button"><i class="fas fa-info-circle"></i></button>
-  </li>
-  <li class="nav-item d-flex">
-    <div id="search_box" class="collapse d-lg-flex panel-collapse width">
-      <input name="text" id="live_search" class="nav-link form-control my-auto" type="search" placeholder="Suche ..." aria-label="Search" autocomplete="off" style="border-radius:0;">
-    </div>
-  </li>
-  <li class="nav-item d-flex d-lg-none">
-    <a href="#search_box" class="nav-link align-self-center" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="search_box">
-      <span class="">
-        {{ symbols.search|safe }}
-      </span>
-    </a>
-  </li>
-  <li class="nav-item d-flex">
-    <a class="nav-link{% if request.user.image %} p-0{% else %} d-flex justify-content-center{% endif %}" style="width:50px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {% if request.user.image %}
-        <img src="{{ request.user.image.url }}" class="" style="width:50px;" alt=""></img>
-        <span class="position-absolute" style="right:16px;bottom:-20px;font-size:large;"><i class="far fa-caret-square-down text-success" style="text-shadow: 0px 0px 10px #fff;"></i></span>
-      {% else %}
-        <span class="" style="font-size:25px;"><i class="far fa-caret-square-down text-light"></i></span>
-      {% endif %}
-    </a>
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="{% url 'user_detail' request.user.pk %}">{{ symbols.user|safe }} {% trans 'profile' %}</a>
-      <a class="dropdown-item" href="{% url 'user_list' %}">{{ symbols.users|safe }} {% trans 'userslist' %}</a>
-      <div class="dropdown-divider"></div>
-      <h6 class="dropdown-header">nomoney.shop</h6>
-      <a class="dropdown-item" href="{% url 'donate' %}"><i class="fas fa-hand-holding-heart"></i>&nbsp;{% trans 'donate'|title %}</a>
-      <a class="dropdown-item" href="{% url 'about' %}"><img src="{% static 'images/logo.svg' %}" class="" style="width:16px;" alt="">&nbsp;{% trans 'about' %}</a>
-    </div>
-  </li>
-</ul>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-3" href="{% url 'category_list' %}">{{ symbols.category|safe }}<span class="d-none d-sm-inline-block pl-1">{% trans 'categories' %}</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link p-3" href="{% url 'calculator' %}">{{ symbols.calculator|safe }}<span class="d-none d-sm-inline-block pl-1">{% trans 'calculator' %}</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link p-3" href="{% url 'chat_list' %}">
+          {% if request.user.unseen_messages.all %}
+            <span class="badge badge-secondary position-absolute" style="margin-top: 15px;margin-left: -10px;">
+              {{ request.user.unseen_messages.all|length }}
+            </span>
+          {% endif %}
+          {{ symbols.chat|safe }}
+          <span class="d-none d-sm-inline-block pl-1">{% trans 'chats' %}</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="col-auto navbar-nav ml-auto navbar-right pr-0 my-auto" style="height:50px;">
+      <li class="nav-item d-flex" title="{% trans 'help' %}">
+        <button class="nav-link btn btn-link help_button"><i class="fas fa-info-circle"></i></button>
+      </li>
+      <li class="nav-item d-flex">
+        <div id="search_box" class="collapse d-lg-flex panel-collapse width">
+          <input name="text" id="live_search" class="nav-link form-control my-auto" type="search" placeholder="Suche ..." aria-label="Search" autocomplete="off" style="border-radius:0;">
+        </div>
+      </li>
+      <li class="nav-item d-flex d-lg-none">
+        <a href="#search_box" class="nav-link align-self-center" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="search_box">
+          <span class="">
+            {{ symbols.search|safe }}
+          </span>
+        </a>
+      </li>
+      <li class="nav-item d-flex">
+        <a class="nav-link{% if request.user.image %} p-0{% else %} d-flex justify-content-center{% endif %}" style="width:50px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {% if request.user.image %}
+            <img src="{{ request.user.image.url }}" class="" style="width:50px;" alt=""></img>
+            <span class="position-absolute" style="right:16px;bottom:-20px;font-size:large;"><i class="far fa-caret-square-down text-success" style="text-shadow: 0px 0px 10px #fff;"></i></span>
+          {% else %}
+            <span class="" style="font-size:25px;"><i class="far fa-caret-square-down text-light"></i></span>
+          {% endif %}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'user_detail' request.user.pk %}">{{ symbols.user|safe }} {% trans 'profile' %}</a>
+          <a class="dropdown-item" href="{% url 'user_list' %}">{{ symbols.users|safe }} {% trans 'userslist' %}</a>
+          <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header">nomoney.shop</h6>
+          <a class="dropdown-item" href="{% url 'donate' %}"><i class="fas fa-hand-holding-heart"></i>&nbsp;{% trans 'donate'|title %}</a>
+          <a class="dropdown-item" href="{% url 'about' %}"><img src="{% static 'images/logo.svg' %}" class="" style="width:16px;" alt="">&nbsp;{% trans 'about' %}</a>
+        </div>
+      </li>
+    </ul>
 
+  {% else %}
+    <div class="container-fluid">
+      <div class="row w-100">
+        <div class="col-auto my-auto">
+          <div class="row m-0">
+            <form id="user_form" class="form-inline pl-1" action="{% url 'user_login' %}?next={{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
+              <div class="col p-0">
+                {{ form.username }}
+              </div>
+              <div class="col-auto d-none d-sm-block"></div>
+              <div class="col p-0">
+                {{ form.password }}
+              </div>
+              <div class="col-auto btn-group btn-group-sm p-0">
+                <button class="btn btn-secondary" type="submit" data-toggle="tooltip" title="login"><i class="fas fa-sign-in-alt"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
       
+        <div class="col d-flex justify-content-center">
+            <div class="col d-flex pr-0 d-flex justify-content-center">
+              <i class="align-self-center fas fa-arrow-right text-light"></i>
+            </div>
+            <div class="col d-flex pr-0 d-flex justify-content-center">
+              <b class="align-self-center m-0 text-nowrap text-light">{% trans 'or' %} {% trans 'login' %} {% trans 'with' %}</b>
+            </div>
+            <div class="col d-flex pr-0 d-flex justify-content-center">
+              <i class="align-self-center fas fa-arrow-right text-light"></i>
+            </div>
+        </div>
+        
+        <div class="col d-flex justify-content-end">
+          <div class="row">
+            <div class="col-auto d-flex justify-content-end">
+              <a class="btn btn-link p-0 m-0 d-flex text-shadow" href="{% url 'social:begin' 'github' %}">
+                <i class="fab fa-github-square fa-2x" style="color:#171515;"></i>
+                <span class="align-self-center pl-2 text-light"><b>Github</b></span>
+              </a>
+            </div>
+            <div class="col-auto d-flex justify-content-end">
+              <a class="btn btn-link p-0 m-0 d-flex text-shadow" href="{% url 'social:begin' 'twitter' %}">
+                <i class="fab fa-twitter-square fa-2x" style="color:#1dabdd;"></i>
+                <span class="align-self-center pl-2 text-light"><b>Twitter</b></span>
+              </a>
+            </div>
+            <div class="col-auto d-flex justify-content-end">
+              <a class="btn btn-link p-0 m-0 d-flex text-shadow" href="{% url 'social:begin' 'facebook' %}">
+                <i class="fab fa-facebook-square fa-2x" style="color:#3b579d;"></i>
+                <span class="align-self-center pl-2 text-light"><b>Facebook</b></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</nav>

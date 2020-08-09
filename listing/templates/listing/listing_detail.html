@@ -6,6 +6,7 @@
   {% include 'listing/inc/help.html' %}
 {% endblock %}
 
+{% block title %}{% trans listing.type|title %}: {{ listing.title }}{% endblock %}
 
 {% block content %}
 <div class="container rounded border p-4">

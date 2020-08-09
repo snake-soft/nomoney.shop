@@ -6,80 +6,7 @@
   {% include 'user/inc/help.html' %}
 {% endblock %}
 
-{% block title %}Sign in{% endblock %}
-
-
-{% block head %}
-<script>
-function login_demo(){
-	$('#id_username').val('demo');
-	$('#id_password').val('demo123');
-	$('#user_form').submit();
-}
-</script>
-<style>
-.text-shadow{
-  text-shadow: 0px 0px 10px #fff;
-}
-</style>
-{% endblock %}
-
-
-{% block login_menu %}
-  <div class="row w-100">
-    <div class="col-auto my-auto">
-      <div class="row m-0">
-        <form id="user_form" class="form-inline pl-1" method="post" enctype="multipart/form-data">{% csrf_token %}
-          <div class="col p-0">
-            {{ form.username }}
-          </div>
-          <div class="col-auto d-none d-sm-block"></div>
-          <div class="col p-0">
-            {{ form.password }}
-          </div>
-          <div class="col-auto btn-group btn-group-sm p-0">
-            <button class="btn btn-secondary" type="submit" data-toggle="tooltip" title="login"><i class="fas fa-sign-in-alt"></i></button>
-          </div>
-        </form>
-      </div>
-    </div>
-  
-    <div class="col d-flex justify-content-center">
-        <div class="col d-flex pr-0 d-flex justify-content-center">
-          <i class="align-self-center fas fa-arrow-right text-light"></i>
-        </div>
-        <div class="col d-flex pr-0 d-flex justify-content-center">
-          <b class="align-self-center m-0 text-nowrap text-light">{% trans 'or' %} {% trans 'login' %} {% trans 'with' %}</b>
-        </div>
-        <div class="col d-flex pr-0 d-flex justify-content-center">
-          <i class="align-self-center fas fa-arrow-right text-light"></i>
-        </div>
-    </div>
-    
-    <div class="col d-flex justify-content-end">
-      <div class="row">
-        <div class="col-auto d-flex justify-content-end">
-          <a class="btn btn-link p-0 m-0 d-flex text-shadow" href="{% url 'social:begin' 'github' %}">
-            <i class="fab fa-github-square fa-2x" style="color:#171515;"></i>
-            <span class="align-self-center pl-2 text-light"><b>Github</b></span>
-          </a>
-        </div>
-        <div class="col-auto d-flex justify-content-end">
-          <a class="btn btn-link p-0 m-0 d-flex text-shadow" href="{% url 'social:begin' 'twitter' %}">
-            <i class="fab fa-twitter-square fa-2x" style="color:#1dabdd;"></i>
-            <span class="align-self-center pl-2 text-light"><b>Twitter</b></span>
-          </a>
-        </div>
-        <div class="col-auto d-flex justify-content-end">
-          <a class="btn btn-link p-0 m-0 d-flex text-shadow" href="{% url 'social:begin' 'facebook' %}">
-            <i class="fab fa-facebook-square fa-2x" style="color:#3b579d;"></i>
-            <span class="align-self-center pl-2 text-light"><b>Facebook</b></span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
+{% block title %}{% trans 'sign in'|title %}{% endblock %}
 
 
 {% block content %}
@@ -89,9 +16,6 @@ function login_demo(){
     </div>
   {% endif %}
   <div class="row mb-5 mt-3">
-    <div class="col-auto align-items-end">
-      <a class="btn btn-info mt-2" href="{% url 'user_create' %}"><i class="fas fa-user-plus"></i> {% trans 'free'|title %} {% trans 'signup' %}</a>
-    </div>
     <div class="col-12 d-flex justify-content-center" style="font-size:xx-large;">Willkommen bei</div>
   </div>
   {% include 'solo/about.html' %}

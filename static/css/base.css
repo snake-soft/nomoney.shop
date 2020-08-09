@@ -36,3 +36,7 @@ nav .nav-link:hover {
 #live_search:hover{
 	color: #000;
 }
+
+.text-shadow{
+  text-shadow: 0px 0px 10px #fff;
+}

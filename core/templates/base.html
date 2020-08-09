@@ -5,7 +5,7 @@
   {% analytical_head_top %}
   {% progressive_web_app_meta %}
   <meta charset="UTF-8">
-  <title>{{ name }} ({{ version_str }}) - {% block title %}Äpfel mit Birnen vergleichen.{% endblock %}</title>
+  <title>{{ name }} {% block title %}({{ version_str }}) - Äpfel mit Birnen vergleichen.{% endblock %}</title>
   <meta name="keywords" content="{% block keywords %}{% trans 'push' %}, {% trans 'pull' %}, {% trans 'market' %}, {% trans 'location' %}, {% trans 'deal' %}, {% trans 'feedback' %}, {% trans 'chat' %}, {% trans 'calculator' %}{% endblock %}" />
   <meta name="description" content="{% block description %}Die währungsfreie Tauschbörse für Waren und Dienstleistungen. Angebote und Nachfragen erstellen, Mögliche Tauschvorgänge finden, Tauschvereinbarung aushandeln, Orte erstellen für Umkreissuche, Märkte für regelmäßige Treffen, Bewertungen erstellen, Integrierte Kommunikation (Chat), Tauschwert-Empfehlung{% endblock %}"> 
   <link rel="shortcut icon" type="image/png" href="{% static 'logo.png' %}"/>
@@ -17,7 +17,7 @@
 
   <script src="{% static 'js/base.js' %}?v=1"></script>
   <script src="{% static 'js/search.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1" />
+  <link rel="stylesheet" href="{% static 'css/base.css' %}?v=2" />
   <style type="text/css">
   </style>
   <script>
@@ -27,16 +27,15 @@
 </head>
 <body style="background-color:#15202b;">
   {% analytical_body_top %}
-  <nav id="main_menu" class="navbar navbar-expand shadow d-flex flex-wrap position-fixed w-100 p-0" style="min-height:50px;z-index:10;top:0;background-color:rgb(29, 161, 242);">
-      {% if request.user.pk %}
-          {% include "menu.html" %}
-      {% else %}
-        <div class="container-fluid">
-          {% block login_menu %}{% endblock %}
-        </div>
-      {% endif %}
-  </nav>
+  {% include "menu.html" %}
   <div id="wrapper" class="container bg-white border shadow" style="margin-top:50px;">
+    {% if not request.user.is_authenticated %}
+      <div class="row mt-4">
+        <div class="col-auto align-items-end">
+          <a class="btn btn-info mt-2" href="{% url 'user_create' %}"><i class="fas fa-user-plus"></i> {% trans 'free'|title %} {% trans 'signup' %}</a>
+        </div>
+      </div>
+    {% endif %}
     <div class="row">
       <div class="col-12 mt-3">
         <div id="help_block" style="display:none; min-height:54px;" class="alert alert-primary alert-dismissible fade show pt-4" role="alert">
