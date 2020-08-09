@@ -3,6 +3,7 @@ from itertools import chain
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from config.settings import LOGGER
+from django.urls.base import reverse
 
 
 class CategoryStatus(models.IntegerChoices):
@@ -40,6 +41,12 @@ class Category(models.Model):
         default=CategoryStatus.UNPROVED,
         choices=CategoryStatus.choices,
         verbose_name=_('status'),
+        )
+    modified = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_('modified'),
+        null=True,
+        blank=True,
         )
 
     @property
@@ -107,6 +114,9 @@ class Category(models.Model):
         :returns: QuerySet of deleted categories
         """
         return cls.objects.filter(status=CategoryStatus.DELETED)
+
+    def get_absolute_url(self):
+        return reverse('category_detail', args=[self.pk])
 
     def save(self, *args, **kwargs):  # pylint: disable=signature-differs
         log_string = 'Category {}: path={} status={}'.format(

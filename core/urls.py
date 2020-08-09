@@ -1,8 +1,8 @@
 """ urls for core module - these are the root urls """
 from django.urls import path
 from django.contrib.sitemaps.views import sitemap
+from core.sitemaps import SITEMAPS
 from .views import AboutView, DashboardHomeView, DonateView, TermsView, ImpressumView
-from .sitemap import SITEMAPS
 
 
 urlpatterns = [
