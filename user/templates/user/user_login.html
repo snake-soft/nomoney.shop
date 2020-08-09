@@ -92,18 +92,7 @@ function login_demo(){
     <div class="col-auto align-items-end">
       <a class="btn btn-info mt-2" href="{% url 'user_create' %}"><i class="fas fa-user-plus"></i> {% trans 'free'|title %} {% trans 'signup' %}</a>
     </div>
-  <div class="col-12 d-flex justify-content-center" style="font-size:xx-large;">Willkommen bei</div>
+    <div class="col-12 d-flex justify-content-center" style="font-size:xx-large;">Willkommen bei</div>
   </div>
-  <div class="row justify-content-center mb-5 mt-3">
-    <div class="col-10 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
-      <div class="row">
-        <div class="col-12 card shadow p-4">
-          <img src="{% static 'images/logo_full.svg' %}" class="" style="width: 100%;" alt="">
-        </div>      
-        <div class="col-12 d-flex justify-content-end mt-3">
-          <p class="text-monospace text-secondary">v{{ version_str }}</p>
-        </div>      
-      </div>
-    </div>
-  </div>
+  {% include 'solo/about.html' %}
 {% endblock %}

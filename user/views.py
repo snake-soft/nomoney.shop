@@ -8,8 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView
 from chat.models import Chat
-from action.models import create_action
+from action.models import create_action, TASKS
 from calculator.models import VirtualDeal
+from action.exp import Level
 from .forms import CustomUserCreationForm, CustomUserLoginForm
 from .models import User, UserConfig
 
@@ -19,6 +20,12 @@ FIELDS = ['username', 'first_name', 'last_name', 'email', 'image', 'description'
 class UserLoginView(LoginView):
     form_class = CustomUserLoginForm
     template_name = 'user/user_login.html'
+
+    def get_context_data(self, **kwargs):
+        context = LoginView.get_context_data(self, **kwargs)
+        context['tasks'] = sorted(TASKS)
+        context['levels'] = Level.levels()
+        return context
 
 
 # pylint: disable=too-many-ancestors
