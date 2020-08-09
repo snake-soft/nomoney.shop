@@ -1,0 +1,9 @@
+{% load i18n %}
+
+  {% if request.user.is_authenticated %}
+    {{ user }}
+  {% else %}
+    <a class="text-dark" style="white-space:nowrap;" href="{% url 'user_create' %}">
+      <span><i class="fas fa-user-plus"></i> {% trans 'only visible for registered users' %}</span>
+    </a>
+  {% endif %}

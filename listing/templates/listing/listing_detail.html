@@ -22,7 +22,7 @@
         {% else %}
           {% trans 'request' %}
         {% endif %}
-          {{ object.title }} {% if user.is_authenticated %}{% trans 'from' %} {{ object.user }}{% endif %}
+          {{ object.title }} {% trans 'from' %} {% with user=listing.user %}{% include 'user/inc/text.html' %}{% endwith %}
       </h5>
     </div>
   </div>

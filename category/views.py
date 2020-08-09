@@ -8,7 +8,7 @@ from .models import Category, CategoryStatus
 
 
 # pylint: disable=too-many-ancestors
-class CategoryListView(LoginRequiredMixin, ListView):
+class CategoryListView(ListView):
     """ list categories in tree form """
     model = Category
     template_name = 'category/category_list.html'
@@ -35,7 +35,7 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         return self.request.GET.get('next', reverse('home'))
 
 
-class CategoryDetailView(LoginRequiredMixin, DetailView):
+class CategoryDetailView(DetailView):
     """ DetailView of single category - this view ajax loads the listings? """
     model = Category
     template_name = 'category/category_detail.html'
@@ -56,7 +56,7 @@ class CategoryUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.GET.get('next', reverse('home'))
 
 
-class CategoryAjaxView(LoginRequiredMixin, DetailView):
+class CategoryAjaxView(DetailView):
     """ DetailView for single category (Not used now) """
     model = Category
     template_name = 'category/solo/category_detail.html'
