@@ -16,17 +16,14 @@ jobs:
         python-version: [3.6, 3.7, 3.8]
 
     steps:
-    - uses: VaultVulp/action-pipenv@v2.0.1
-    - name: Set up Python ${{ matrix.python-version }}
-    - uses: actions/checkout@master
-    - uses: actions/setup-python@v1
-    - uses: dschep/install-pipenv-action@v1
+    - uses: actions/checkout@v2 # Checking out the repo
+
+    - name: Install dependecies
+      uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        pipenv install --dev --verbose
-    - name: Run Tests
-      run: |
-        pipenv run coverage run --source='.' manage.py test
-        pipenv run coverage report -m --skip-covered
+        command: install -d # Install all dependencies, including development ones
+    
+    - name: Test
+      uses: VaultVulp/action-pipenv@v2.0.1
+      with:
+        command: run coverage run --source='.' manage.py test
